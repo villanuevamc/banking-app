@@ -1,17 +1,16 @@
+const useLocation = ReactRouterDOM.useLocation;
+
 function NavBar() {
+  const [currentPage, setCurrentPage] = React.useState(useLocation().pathname);
+
   const current = (e) => {
-    // Get "old" current link and reset to inactive
-    const oldCurrent = document.getElementsByClassName("bg-light text-dark");
-    if (oldCurrent.length > 0) {
-      if (oldCurrent[0].id === "home") {
-        oldCurrent[0].className = "navbar-brand"
-      } else {
-        oldCurrent[0].className = "nav-item nav-link";
-      }
-    }
-    // Get "new" current link and add 'current' class
+    const oldCurrent = document.getElementById(currentPage);
+    oldCurrent.classList.remove("bg-dark");
+    oldCurrent.classList.remove("text-white");
+
     const newCurrent = document.getElementById(e.currentTarget.id);
-    newCurrent.className += " bg-light text-dark";
+    newCurrent.className += " bg-dark text-white";
+    setCurrentPage(newCurrent.id);
   };
 
   return (
@@ -34,7 +33,15 @@ function NavBar() {
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
             <a
-              id="createAccount"
+              id="/login/"
+              className="nav-item nav-link"
+              href="#/login/"
+              onClick={current}
+            >
+              Login
+            </a>
+            <a
+              id="/CreateAccount/"
               className="nav-item nav-link"
               href="#/CreateAccount/"
               onClick={current}
@@ -42,7 +49,7 @@ function NavBar() {
               Create Account
             </a>
             <a
-              id="deposit"
+              id="/deposit/"
               className="nav-item nav-link"
               href="#/deposit/"
               onClick={current}
@@ -50,7 +57,7 @@ function NavBar() {
               Deposit
             </a>
             <a
-              id="withdraw"
+              id="/withdraw/"
               className="nav-item nav-link"
               href="#/withdraw/"
               onClick={current}
@@ -58,7 +65,7 @@ function NavBar() {
               Withdraw
             </a>
             <a
-              id="allData"
+              id="/allData/"
               className="nav-item nav-link"
               href="#/alldata/"
               onClick={current}
