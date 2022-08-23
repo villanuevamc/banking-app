@@ -11,10 +11,19 @@ function Login() {
       if (user.email === userEmail && user.password === userPassword)
         return user;
     });
+
+    if (!user) {
+      alert("That user does not exist");
+      setUserEmail("");
+      setUserPassword("");
+      return;
+    }
+
     ctx.currentUser = user;
     ctx.loggedIn = true;
     alert("Successfully logged in");
-    history.push('/#');
+    history.push("/#");
+    s;
   }
 
   return (
