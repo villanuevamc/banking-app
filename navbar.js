@@ -1,26 +1,37 @@
-const useLocation = ReactRouterDOM.useLocation;
-
 function NavBar() {
-  const getLocation = useLocation();
-  const { loggedIn } = React.useContext(UserContext);
-  const [currentPage, setCurrentPage] = React.useState(getLocation.pathname);
+  const { loggedIn, currentPage, setCurrentPage, lastPage, setLastPage } =
+    React.useContext(UserContext);
+  //const [currentPage, setCurrentPage] = React.useState(window.location.hash);
 
-  const current = (e) => {
-    const oldCurrent = document.getElementById(currentPage);
-    if (oldCurrent) {
-      oldCurrent.classList.remove("bg-dark");
-      oldCurrent.classList.remove("text-white");
-    }
+  React.useEffect(() => {
+    // Since the window hash won't update by the time the onClick action
+    // happens, a delay is added so we wait to update currentPage
+    setTimeout(() => {
+      console.log("OLD: ", lastPage);
+      const oldCurrent = document.getElementById(lastPage);
+      if (oldCurrent) {
+        oldCurrent.classList.remove("bg-dark");
+        oldCurrent.classList.remove("text-white");
+      }
+      setCurrentPage(window.location.hash);
+    }, 10);
+  }, [lastPage]);
 
-    const newCurrent = document.getElementById(e.currentTarget.id);
-    newCurrent.className += " bg-dark text-white";
-    setCurrentPage(newCurrent.id);
-  };
+  React.useEffect(() => {
+    console.log("NEW: ", currentPage);
+    const newCurrent = document.getElementById(currentPage);
+    if (newCurrent) newCurrent.className += " bg-dark text-white";
+  }, [currentPage]);
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a id="home" className="navbar-brand" href="#" onClick={current}>
+        <a
+          id="#/"
+          className="navbar-brand"
+          href="#"
+          onClick={() => setLastPage(window.location.hash)}
+        >
           BadBank
         </a>
         <button
@@ -38,26 +49,26 @@ function NavBar() {
           {!loggedIn ? (
             <div className="navbar-nav">
               <a
-                id="/login/"
+                id="#/login/"
                 className="nav-item nav-link"
                 href="#/login/"
-                onClick={current}
+                onClick={() => setLastPage(window.location.hash)}
               >
                 Login
               </a>
               <a
-                id="/CreateAccount/"
+                id="#/createAccount/"
                 className="nav-item nav-link"
-                href="#/CreateAccount/"
-                onClick={current}
+                href="#/createAccount/"
+                onClick={() => setLastPage(window.location.hash)}
               >
                 Create Account
               </a>
               <a
-                id="/allData/"
+                id="#/allData/"
                 className="nav-item nav-link"
-                href="#/alldata/"
-                onClick={current}
+                href="#/allData/"
+                onClick={() => setLastPage(window.location.hash)}
               >
                 All Data
               </a>
@@ -65,34 +76,34 @@ function NavBar() {
           ) : (
             <div className="navbar-nav">
               <a
-                id="/CreateAccount/"
+                id="#/createAccount/"
                 className="nav-item nav-link"
-                href="#/CreateAccount/"
-                onClick={current}
+                href="#/createAccount/"
+                onClick={() => setLastPage(window.location.hash)}
               >
                 Create Account
               </a>
               <a
-                id="/deposit/"
+                id="#/deposit/"
                 className="nav-item nav-link"
                 href="#/deposit/"
-                onClick={current}
+                onClick={() => setLastPage(window.location.hash)}
               >
                 Deposit
               </a>
               <a
-                id="/withdraw/"
+                id="#/withdraw/"
                 className="nav-item nav-link"
                 href="#/withdraw/"
-                onClick={current}
+                onClick={() => setLastPage(window.location.hash)}
               >
                 Withdraw
               </a>
               <a
-                id="/allData/"
+                id="#/allData/"
                 className="nav-item nav-link"
-                href="#/alldata/"
-                onClick={current}
+                href="#/allData/"
+                onClick={() => setLastPage(window.location.hash)}
               >
                 All Data
               </a>

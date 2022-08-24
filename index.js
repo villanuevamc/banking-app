@@ -1,8 +1,8 @@
 function Spa() {
   const [users, setUsers] = React.useState([
     {
-      name: "test",
-      email: "test",
+      name: "TestUser",
+      email: "testuser@gmail.com",
       password: "testtest",
       balance: 100,
     },
@@ -28,7 +28,7 @@ function Spa() {
           setLastPage,
         }}
       >
-        <NavBar2 />
+        <NavBar />
         <div className="container" style={{ padding: "20px" }}>
           <Route path="/" exact component={Home} />
           <Route path="/createAccount/" component={CreateAccount} />
