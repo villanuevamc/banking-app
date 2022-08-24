@@ -1,26 +1,27 @@
-const useLocation = ReactRouterDOM.useLocation;
-
-function NavBar() {
-  const getLocation = useLocation();
+function NavBar2() {
   const { loggedIn } = React.useContext(UserContext);
-  const [currentPage, setCurrentPage] = React.useState(getLocation.pathname);
+  const { currentPage, setCurrentPage } = React.useContext(UserContext);
 
-  const current = (e) => {
-    const oldCurrent = document.getElementById(currentPage);
-    if (oldCurrent) {
+  function updateActiveLink() {
+    setTimeout(function () {
+      const oldCurrent = document.getElementById(currentPage);
+      console.log(oldCurrent);
       oldCurrent.classList.remove("bg-dark");
       oldCurrent.classList.remove("text-white");
-    }
+      setCurrentPage(window.location.hash);
+      const newCurrent = document.getElementById(currentPage);
+      if (newCurrent) newCurrent.className += " bg-dark text-white";
+    }, 1);
+  }
 
-    const newCurrent = document.getElementById(e.currentTarget.id);
-    newCurrent.className += " bg-dark text-white";
-    setCurrentPage(newCurrent.id);
-  };
+  /* React.useEffect(() => {
+    updateActiveLink();
+  });*/
 
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a id="home" className="navbar-brand" href="#" onClick={current}>
+        <a id="/#" className="navbar-brand" href="#" onClick={updateActiveLink}>
           BadBank
         </a>
         <button
@@ -38,26 +39,26 @@ function NavBar() {
           {!loggedIn ? (
             <div className="navbar-nav">
               <a
-                id="/login/"
+                id="#/login/"
                 className="nav-item nav-link"
                 href="#/login/"
-                onClick={current}
+                onClick={updateActiveLink}
               >
                 Login
               </a>
               <a
-                id="/CreateAccount/"
+                id="#/CreateAccount/"
                 className="nav-item nav-link"
                 href="#/CreateAccount/"
-                onClick={current}
+                onClick={updateActiveLink}
               >
                 Create Account
               </a>
               <a
-                id="/allData/"
+                id="#/allData/"
                 className="nav-item nav-link"
                 href="#/alldata/"
-                onClick={current}
+                onClick={updateActiveLink}
               >
                 All Data
               </a>
@@ -65,34 +66,34 @@ function NavBar() {
           ) : (
             <div className="navbar-nav">
               <a
-                id="/CreateAccount/"
+                id="#/CreateAccount/"
                 className="nav-item nav-link"
                 href="#/CreateAccount/"
-                onClick={current}
+                onClick={setCurrentPage(window.location.hash)}
               >
                 Create Account
               </a>
               <a
-                id="/deposit/"
+                id="#/deposit/"
                 className="nav-item nav-link"
                 href="#/deposit/"
-                onClick={current}
+                onClick={setCurrentPage(window.location.hash)}
               >
                 Deposit
               </a>
               <a
-                id="/withdraw/"
+                id="#/withdraw/"
                 className="nav-item nav-link"
                 href="#/withdraw/"
-                onClick={current}
+                onClick={setCurrentPage(window.location.hash)}
               >
                 Withdraw
               </a>
               <a
-                id="/allData/"
+                id="#/allData/"
                 className="nav-item nav-link"
                 href="#/alldata/"
-                onClick={current}
+                onClick={setCurrentPage(window.location.hash)}
               >
                 All Data
               </a>

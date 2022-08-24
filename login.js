@@ -3,11 +3,11 @@ const useHistory = ReactRouterDOM.useHistory;
 function Login() {
   const [userEmail, setUserEmail] = React.useState("");
   const [userPassword, setUserPassword] = React.useState("");
-  const ctx = React.useContext(UserContext);
+  const { users, setCurrentUser, setLoggedIn } = React.useContext(UserContext);
   const history = useHistory();
 
   function login() {
-    const user = ctx.users.find((user) => {
+    const user = users.find((user) => {
       if (user.email === userEmail && user.password === userPassword)
         return user;
     });
@@ -19,16 +19,15 @@ function Login() {
       return;
     }
 
-    ctx.currentUser = user;
-    ctx.loggedIn = true;
-    alert("Successfully logged in");
+    setCurrentUser(user);
+    setLoggedIn(true);
+    alert("Successfully logged in!");
     history.push("/#");
-    s;
   }
 
   return (
     <Card
-      bgcolor="primary"
+      bgcolor="dark"
       txtcolor="white"
       body={
         <>

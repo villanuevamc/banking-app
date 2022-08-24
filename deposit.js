@@ -1,9 +1,13 @@
+const useHistory = ReactRouterDOM.useHistory;
+
 function Deposit() {
-  const ctx = React.useContext(UserContext);
   const [status, setStatus] = React.useState("");
-  const [bgColor, setBgColor] = React.useState("primary");
+  const [bgColor, setBgColor] = React.useState("dark");
   const [deposit, setDeposit] = React.useState("");
-  const [balance, setBalance] = React.useState(ctx.currentUser.balance);
+  const { currentUser, setCurrentUser, loggedIn } =
+    React.useContext(UserContext);
+  const history = useHistory();
+  if (!loggedIn) history.push("/#");
 
   function handleDeposit() {
     if (isNaN(deposit)) {
@@ -22,8 +26,10 @@ function Deposit() {
       return;
     }
 
-    setBalance(Number(balance) + Number(deposit));
-    ctx.currentUser.balance = balance;
+    currentUser.balance = Number(currentUser.balance) + Number(deposit);
+    setCurrentUser(currentUser);
+    alert(`Deposit of $${deposit} successfully made!`);
+    setDeposit("");
   }
 
   return (
@@ -36,7 +42,7 @@ function Deposit() {
         <div>
           <div className="d-flex">
             <div>Balance</div>
-            <div className="ml-auto">{balance}</div>
+            <div className="ml-auto">{currentUser.balance}</div>
           </div>
           <br />
           Deposit Amount

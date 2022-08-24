@@ -5,7 +5,7 @@ function CreateAccount() {
   const [password, setPassword] = React.useState("");
   const [bgColor, setBgColor] = React.useState("dark");
   const [accountButton, setAccountButton] = React.useState("Create Account");
-  const ctx = React.useContext(UserContext);
+  const { users, setUsers } = React.useContext(UserContext);
 
   function validate(field, label) {
     if (!field) {
@@ -30,7 +30,8 @@ function CreateAccount() {
     if (!validate(name, "name")) return;
     if (!validate(email, "email")) return;
     if (!validate(password, "password")) return;
-    ctx.users.push({ name, email, password, balance: 100 });
+    users.push({ name, email, password, balance: 100 });
+    setUsers(users);
     clearForm();
     alert("Successfully created account!");
   }

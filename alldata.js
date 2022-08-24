@@ -1,9 +1,30 @@
-function AllData(){
-  const ctx = React.useContext(UserContext);
+function AllData() {
+  const { users } = React.useContext(UserContext);
   return (
-    <>
-    <h5>All Data in Store</h5>
-    {JSON.stringify(ctx)}<br/>
-    </>
+    <Card
+      bgcolor="dark"
+      txtcolor="white"
+      header="ALL DATA"
+      body={
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Name</th>
+              <th scope="col">Password</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.password}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      }
+    />
   );
 }

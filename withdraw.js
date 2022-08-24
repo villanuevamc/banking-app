@@ -1,9 +1,13 @@
+const useHistory = ReactRouterDOM.useHistory;
+
 function Withdraw() {
-  const ctx = React.useContext(UserContext);
   const [status, setStatus] = React.useState("");
-  const [bgColor, setBgColor] = React.useState("primary");
+  const [bgColor, setBgColor] = React.useState("dark");
   const [withdraw, setWithdraw] = React.useState("");
-  const [balance, setBalance] = React.useState(ctx.currentUser.balance);
+  const { currentUser, setCurrentUser, loggedIn } =
+    React.useContext(UserContext);
+  const history = useHistory();
+  if (!loggedIn) history.push("/#");
 
   function handleDeposit() {
     if (isNaN(withdraw)) {
@@ -22,16 +26,20 @@ function Withdraw() {
       return;
     }
 
-    if (withdraw > balance) {
-      setStatus("Error: Withdrawal value can't be greater than balance");
+    if (withdraw > currentUser.balance) {
+      setStatus(
+        "Transaction failed: Withdrawal value can't be greater than balance"
+      );
       setBgColor("danger");
       setTimeout(() => setStatus(""), 3000);
       setTimeout(() => setBgColor("primary"), 3000);
+      return;
     }
 
-    setBalance(Number(balance) - Number(withdraw));
-    ctx.currentUser.balance = balance;
-    console.log(ctx.currentUser);
+    currentUser.balance = Number(currentUser.balance) - Number(withdraw);
+    setCurrentUser(currentUser);
+    alert(`Withdrawal of $${withdraw} successfully made!`);
+    setWithdraw("");
   }
 
   return (
@@ -44,7 +52,7 @@ function Withdraw() {
         <div>
           <div className="d-flex">
             <div>Balance</div>
-            <div className="ml-auto">{balance}</div>
+            <div className="ml-auto">{currentUser.balance}</div>
           </div>
           <br />
           Deposit Amount
