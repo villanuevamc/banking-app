@@ -9,7 +9,12 @@ function CreateAccount() {
 
   function validate(field, label) {
     if (!field) {
-      setStatus("Error: " + label);
+      setStatus(
+        "Error: " +
+          label.charAt(0).toUpperCase() +
+          label.slice(1) +
+          " is missing, all fields must be filled to create a new account"
+      );
       setBgColor("danger");
       setTimeout(() => setStatus(""), 3000);
       setTimeout(() => setBgColor("dark"), 3000);
@@ -17,7 +22,9 @@ function CreateAccount() {
     }
 
     if (label === "password" && field.length < 8) {
-      setStatus("Error: password is too short");
+      setStatus(
+        "Error: Password is too short, must be at least 8 characters long"
+      );
       setBgColor("danger");
       setTimeout(() => setStatus(""), 3000);
       setTimeout(() => setBgColor("dark"), 3000);
