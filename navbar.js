@@ -7,7 +7,6 @@ function NavBar() {
     // Since the window hash won't update by the time the onClick action
     // happens, a delay is added so we wait to update currentPage
     setTimeout(() => {
-      console.log("OLD: ", lastPage);
       const oldCurrent = document.getElementById(lastPage);
       if (oldCurrent) {
         oldCurrent.classList.remove("bg-dark");
@@ -18,7 +17,6 @@ function NavBar() {
   }, [lastPage]);
 
   React.useEffect(() => {
-    console.log("NEW: ", currentPage);
     const newCurrent = document.getElementById(currentPage);
     if (newCurrent) newCurrent.className += " bg-dark text-white";
   }, [currentPage]);
