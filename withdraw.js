@@ -55,7 +55,7 @@ function Withdraw() {
             <div className="ml-auto">{currentUser.balance}</div>
           </div>
           <br />
-          Deposit Amount
+          Withdrawal Amount
           <br />
           <input
             type="input"
