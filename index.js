@@ -10,6 +10,7 @@ function Spa() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(window.location.hash);
+  const [lastPage, setLastPage] = React.useState("");
 
   return (
     <HashRouter>
@@ -23,16 +24,18 @@ function Spa() {
           setLoggedIn,
           currentPage,
           setCurrentPage,
+          lastPage,
+          setLastPage,
         }}
       >
         <NavBar2 />
         <div className="container" style={{ padding: "20px" }}>
           <Route path="/" exact component={Home} />
-          <Route path="/CreateAccount/" component={CreateAccount} />
+          <Route path="/createAccount/" component={CreateAccount} />
           <Route path="/login/" component={Login} />
           <Route path="/deposit/" component={Deposit} />
           <Route path="/withdraw/" component={Withdraw} />
-          <Route path="/alldata/" component={AllData} />
+          <Route path="/allData/" component={AllData} />
         </div>
       </UserContext.Provider>
     </HashRouter>

@@ -3,7 +3,14 @@ const useHistory = ReactRouterDOM.useHistory;
 function Login() {
   const [userEmail, setUserEmail] = React.useState("");
   const [userPassword, setUserPassword] = React.useState("");
-  const { users, setCurrentUser, setLoggedIn } = React.useContext(UserContext);
+  const {
+    users,
+    setCurrentUser,
+    setLoggedIn,
+    setCurrentPage,
+    lastPage,
+    setLastPage,
+  } = React.useContext(UserContext);
   const history = useHistory();
 
   function login() {
@@ -22,6 +29,8 @@ function Login() {
     setCurrentUser(user);
     setLoggedIn(true);
     alert("Successfully logged in!");
+    setLastPage("#/createAccount/");
+    setCurrentPage("#/");
     history.push("/#");
   }
 
