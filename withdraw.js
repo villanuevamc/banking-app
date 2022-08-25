@@ -14,7 +14,7 @@ function Withdraw() {
       setStatus("Error: Withdrawal value must be a number");
       setBgColor("danger");
       setTimeout(() => setStatus(""), 3000);
-      setTimeout(() => setBgColor("primary"), 3000);
+      setTimeout(() => setBgColor("dark"), 3000);
       return;
     }
 
@@ -22,7 +22,7 @@ function Withdraw() {
       setStatus("Error: Withdrawal value must be greater than 0");
       setBgColor("danger");
       setTimeout(() => setStatus(""), 3000);
-      setTimeout(() => setBgColor("primary"), 3000);
+      setTimeout(() => setBgColor("dark"), 3000);
       return;
     }
 
@@ -32,7 +32,7 @@ function Withdraw() {
       );
       setBgColor("danger");
       setTimeout(() => setStatus(""), 3000);
-      setTimeout(() => setBgColor("primary"), 3000);
+      setTimeout(() => setBgColor("dark"), 3000);
       return;
     }
 
