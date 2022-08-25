@@ -1,7 +1,13 @@
 function NavBar() {
-  const { loggedIn, currentPage, setCurrentPage, lastPage, setLastPage } =
-    React.useContext(UserContext);
-  //const [currentPage, setCurrentPage] = React.useState(window.location.hash);
+  const {
+    loggedIn,
+    setLoggedIn,
+    currentPage,
+    setCurrentPage,
+    lastPage,
+    setLastPage,
+    setCurrentUser,
+  } = React.useContext(UserContext);
 
   React.useEffect(() => {
     // Since the window hash won't update by the time the onClick action
@@ -12,14 +18,23 @@ function NavBar() {
         oldCurrent.classList.remove("bg-dark");
         oldCurrent.classList.remove("text-white");
       }
+      console.log("OLD: ", lastPage);
       setCurrentPage(window.location.hash);
     }, 10);
   }, [lastPage]);
 
   React.useEffect(() => {
+    console.log("NEW: ", currentPage);
     const newCurrent = document.getElementById(currentPage);
     if (newCurrent) newCurrent.className += " bg-dark text-white";
   }, [currentPage]);
+
+  function logout() {
+    setLoggedIn(false);
+    setCurrentUser({});
+    setLastPage(currentPage);
+    setCurrentPage("#/login/");
+  }
 
   return (
     <>
@@ -104,6 +119,14 @@ function NavBar() {
                 onClick={() => setLastPage(window.location.hash)}
               >
                 All Data
+              </a>
+              <a
+                id="logout"
+                className="nav-item nav-link"
+                href="#/login/"
+                onClick={logout}
+              >
+                Log Out
               </a>
             </div>
           )}
